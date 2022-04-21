@@ -12,10 +12,7 @@ sf::Vector2u Form::margin = {50, 50};
 
 Form::Form(sf::Vector2f pos, bool isDisplayed): pos{pos}, isDisplayed{isDisplayed}{}
 
-Form::Form(const Form& other){
-    isDisplayed = other.isDisplayed;
-    pos = other.pos;
-    size = other.size;
+Form::Form(const Form& other): size{other.size}, pos{other.pos}, isDisplayed{other.isDisplayed}{
     for(const auto& input: other.inputs)
         inputs.emplace_back(input->clone());
 }
