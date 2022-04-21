@@ -5,9 +5,10 @@
 #include "../headers/Evidence.hpp"
 #include <ctime>
 #include <utility>
+#include <numeric>
 
 Evidence::Evidence(const std::string& _value, std::string _date, std::string _info): value(_value), info{std::move(_info)}{
-    val = stringToInt(_value);
+    val = stringToInt(const_cast<std::string &>(_value));
     std::vector <int> v = parseDate(std::move(_date));
 
     time_t rawTime;
@@ -55,13 +56,22 @@ std::string Evidence::intToString(int num){
     return res;
 }
 
-int Evidence::stringToInt(const std::string& str){
-    int sign = 1, num = 0;
-    if(str[0] == '-')
+int sum(int x, char ch){
+    return x * 10 + (int)(ch - '0');
+}
+
+int Evidence::stringToInt(std::string& str){
+    int sign = 1;
+    if(str[0] == '-') {
         sign = -1;
-    for(const auto& ch: str)
-        if(ch != '-')
-            num = num * 10 + (int)(ch - '0');
+        str = str.substr(1);
+    }
+//    for(const auto& ch: str)
+//        if(ch != '-')
+//            num = num * 10 + (int)(ch - '0');
+//    return num * sign;
+
+    auto num = std::accumulate(str.begin(), str.end(), 0, sum);
     return num * sign;
 }
 

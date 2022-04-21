@@ -27,7 +27,7 @@ public:
 
     static std::vector<int> parseDate(std::string);
     static std::string intToString(int);
-    static int stringToInt(const std::string&);
+    static int stringToInt(std::string&);
 
     friend bool operator<(const Evidence& a, const Evidence& b);
     friend bool operator<=(const Evidence& a, const Evidence& b);

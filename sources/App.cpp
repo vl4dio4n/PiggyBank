@@ -33,7 +33,7 @@ void App::changeView(const std::string& message) {
         delete views[3];
         views.pop_back();
     }
-    
+
 //    for(auto& view: views)
 //        if(view->getViewName() == message){
 //            view->setIsDisplayed(true);

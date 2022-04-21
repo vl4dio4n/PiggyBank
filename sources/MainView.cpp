@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iostream>
 #include <utility>
+#include <numeric>
 
 MainView::MainView(std::string viewName, bool isDisplayed, std::string sessionUser): View(std::move(viewName), isDisplayed), selectedContainer(-1),
                                                                                      updateForm({400.f, 185.f}, false), btnForm({1050.f, 190.f}, true), addEvidenceForm({400.f, 155.f}, false), filterForm({400.f, 155.f}, false), balanceForm({1050.f, 730.f}, false),
@@ -259,11 +260,16 @@ std::string MainView::intToString(int num) {
     return numStr;
 }
 
+int sum(int x, const std::pair <std::shared_ptr<Container>, bool>& container){
+    return x + (container.first)->getEvidence().getIntValue();
+}
+
 int MainView::getBalance() const{
-    int balance = 0;
-    for(const auto& container: containers)
-        if(container.second)
-            balance += (container.first)->getEvidence().getIntValue();
+//    int balance = 0;
+//    for(const auto& container: containers)
+//        if(container.second)
+//            balance += (container.first)->getEvidence().getIntValue();
+    auto balance = std::accumulate(containers.begin(), containers.end(), 0, sum);
     return balance;
 }
 
