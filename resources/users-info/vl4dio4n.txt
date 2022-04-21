@@ -1,0 +1,32 @@
+300,18/2/2022,gutui
+-50,1/3/2022,vin
+210,2/3/2022,tuica
+430,3/3/2022,palinca
+-230,4/3/2022,asa beau oamenii buni
+-125,5/3/2022,Ana are mere multe si gustoase pe care nu vrea sa le imparta cu nimeni fiindca este zgarcita. Ionel vine si cere cirese si pentru ca ii plac foarte mult dar este refuzat
+-1025,6/3/2022,Ana are mere multe si gustoase pe care nu vrea sa le imparta cu nimeni fiindca este zgarcita. Ionel vine si cere cirese si pentru ca ii plac foarte mult dar este refuzat
+380,7/3/2022,de sambata pana luni
+320,8/3/2022,afara ploua ploua
+-1025,9/3/2022,Ana are mere multe si gustoase pe care nu vrea sa le imparta cu nimeni fiindca este zgarcita. Ionel vine si cere cirese si pentru ca ii plac foarte mult dar este refuzat
+-80,10/3/2022,si-i trecut de ora noua
+90,11/3/2022,noi vorbim cu mare arta
+-125,12/3/2022,Ana are mere multe si gustoase pe care nu vrea sa le imparta cu nimeni fiindca este zgarcita. Ionel vine si cere cirese si pentru ca ii plac foarte mult dar este refuzat
+210,13/3/2022,gulie
+200,14/3/2022,portocale
+180,15/3/2022,cirese
+200,16/3/2022,piersici
+150,17/3/2022,caise
+300,18/3/2022,struguri
+100,19/3/2022,prune
+100,20/3/2022,mere
+1000,21/3/2022,nuci
+430,22/3/2022,despre una despre alta
+70,23/3/2022,si nu stiu de ce anume
+-30,24/3/2022,curent
+870,25/3/2022,nu ma poti spune pe lume
+-645,26/3/2022,insa in privirea noastra
+74,27/3/2022,nu e loc de dumneavostra
+-33,28/3/2022,in micuta cafenea
+654,29/3/2022,tot vorbea de vraja mea
+454,30/3/2022,mai putin de viata sa
+100,2/2/2023,banane
