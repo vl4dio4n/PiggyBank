@@ -261,7 +261,7 @@ std::string MainView::intToString(int num) {
 }
 
 int sum(int x, const std::pair <std::shared_ptr<Container>, bool>& container){
-    return x + (container.first)->getEvidence().getIntValue();
+    return container.second ? x + (container.first)->getEvidence().getIntValue() : x;
 }
 
 int MainView::getBalance() const{
