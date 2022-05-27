@@ -13,9 +13,13 @@ class App{
 private:
     sf::RenderWindow& window;
     std::vector <View*> views;
+    explicit App(sf::RenderWindow&);
 
 public:
-    explicit App(sf::RenderWindow&);
+    App(const App&) = delete;
+    App& operator=(const App&) = delete;
+
+    static App& getApp(sf::RenderWindow&);
 
     [[nodiscard]] static bool checkViewCenter(float, float, float) ;
     void changeView(const std::string&);

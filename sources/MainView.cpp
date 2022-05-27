@@ -6,45 +6,17 @@
 #include "../headers/Button.hpp"
 #include "../headers/TextArea.hpp"
 #include "../headers/Exceptions.hpp"
+#include "../headers/FormFactory.hpp"
 #include <fstream>
 #include <iostream>
 #include <utility>
 #include <numeric>
 
 MainView::MainView(std::string viewName, bool isDisplayed, std::string sessionUser): View(std::move(viewName), isDisplayed), selectedContainer(-1),
-                                                                                     updateForm({400.f, 185.f}, false), btnForm({1050.f, 190.f}, true), addEvidenceForm({400.f, 155.f}, false), filterForm({400.f, 155.f}, false), balanceForm({1050.f, 730.f}, false),
+                                                                                     updateForm(FormFactory::getUpdateForm()), btnForm(FormFactory::getBtnForm()), addEvidenceForm(FormFactory::getAddEvidenceForm()), filterForm(FormFactory::getFilterForm()), balanceForm(FormFactory::getBalanceForm()),
                                                                                      userText("Hi, " + sessionUser + "!", {550.f, 50.f}, {0.f, 100.f}), sessionUser(std::move(sessionUser)){
     userText.setTextRect();
     createContainers();
-
-    sf::Color btnFillColor{127, 135, 38};
-    sf::Color btnOutlineColor{66, 69, 19};
-    sf::Color taFillColor = sf::Color::White;
-    sf::Color taOutlineColor = sf::Color::Black;
-
-    btnForm.addInput("Log Out", "SignOut", {50.f, 50.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-    btnForm.addInput("Add Evidence", "AddEvidenceForm", {50.f, 140.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-    btnForm.addInput("Filter", "FilterEvidenceForm", {50.f, 230.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-    btnForm.addInput("Show All", "ShowAll", {50.f, 320.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-    btnForm.addInput("Get Balance", "Balance", {50.f, 410.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-
-    addEvidenceForm.addInput("Add Evidence", "", {150.f, 50.f}, {0.f, 100.f}, sf::Color::Transparent, sf::Color::Transparent, typeid(Text));
-    addEvidenceForm.addInput("Value", "", {50.f, 130.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    addEvidenceForm.addInput("Day (1-31)", "", {50.f, 200.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    addEvidenceForm.addInput("Month (0-11)", "", {50.f, 270.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    addEvidenceForm.addInput("Year (>1900)", "", {50.f, 340.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    addEvidenceForm.addInput("Info", "", {50.f, 410.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    addEvidenceForm.addInput("Create", "AddEvidence", {75.f, 480.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-    addEvidenceForm.addInput("Back", "CloseForm", {325.f, 480.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-
-    filterForm.addInput("Filter", "", {240.f, 50.f}, {0.f, 100.f}, sf::Color::Transparent, sf::Color::Transparent, typeid(Text));
-    filterForm.addInput("Select a single date by typing 'dd/mm/yyyy'", "", {50.f, 130.f}, {0.f, 40.f}, sf::Color::Transparent, sf::Color::Transparent, typeid(Text));
-    filterForm.addInput("Select interval dates by typing 'dd/mm/yyyy-dd/mm/yyyy'", "", {50.f, 160.f}, {0.f, 40.f}, sf::Color::Transparent, sf::Color::Transparent, typeid(Text));
-    filterForm.addInput("Multiple criteria in a single query are separated by ';'", "", {50.f, 190.f}, {0.f, 40.f}, sf::Color::Transparent, sf::Color::Transparent, typeid(Text));
-    filterForm.addInput("Query", "", {50.f, 250.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    filterForm.addInput("Filter", "Filter", {75.f, 340.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-    filterForm.addInput("Back", "CloseForm", {325.f, 340.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-
 }
 
 float MainView::getViewHeight() const{
@@ -204,41 +176,30 @@ std::vector <std::pair<std::string, std::string>> MainView::parseQueryLine(std::
         rawDates.push_back(value);
 
     std::vector <std::pair <std::string, std::string> > intervals;
-    for(const auto& rawDate: rawDates){
-        try{
-            intervals.push_back(parseInterval(rawDate));
-        }
-        catch (input_error&){
-            throw;
-        }
-    }
+    for(const auto& rawDate: rawDates)
+        intervals.push_back(parseInterval(rawDate));
     return intervals;
 }
 
 void MainView::filterEvidence(std::map <std::string, std::string> query){
-    try {
-        std::vector<std::pair<std::string, std::string> > intervals = parseQueryLine(query["Query"]);
-//        for(const auto& interval: intervals)
-//            std::cout << interval.first << " " << interval.second << "\n";
-//        std::cout << "\n";
-        for(auto& container: containers)
-            if(container.second) {
-                container.second = false;
-                Evidence evidence = (container.first)->getEvidence();
-                for (const auto &interval: intervals) {
-                    Evidence left = Evidence{"0", interval.first, "nothing"};
-                    Evidence right = Evidence{"0", interval.second, "nothing"};
-                    if (right < left)
-                        std::swap(left, right);
-                    container.second = container.second || (left <= evidence && evidence <= right);
-                }
+    std::vector<std::pair<std::string, std::string> > intervals = parseQueryLine(query["Query"]);
+//    for(const auto& interval: intervals)
+//        std::cout << interval.first << " " << interval.second << "\n";
+//    std::cout << "\n";
+    for(auto& container: containers)
+        if(container.second) {
+            container.second = false;
+            Evidence evidence = (container.first)->getEvidence();
+            for (const auto &interval: intervals) {
+                Evidence left = Evidence{"0", interval.first, "nothing"};
+                Evidence right = Evidence{"0", interval.second, "nothing"};
+                if (right < left)
+                    std::swap(left, right);
+                container.second = container.second || (left <= evidence && evidence <= right);
             }
-        std::sort(containers.begin(), containers.end(), cmp);
-        updateContainerPosition();
-    }
-    catch(input_error &){
-        throw;
-    }
+        }
+    std::sort(containers.begin(), containers.end(), cmp);
+    updateContainerPosition();
 }
 
 std::string MainView::intToString(int num) {

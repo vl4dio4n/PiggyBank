@@ -11,7 +11,6 @@
 class SignUpView: public View{
 private:
     Form form;
-
 public:
     SignUpView(std::string, bool);
 

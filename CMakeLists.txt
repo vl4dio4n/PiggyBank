@@ -34,7 +34,7 @@ FetchContent_MakeAvailable(SFML)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp headers/View.hpp headers/WelcomeView.hpp headers/SignInView.hpp headers/SignUpView.hpp headers/MainView.hpp headers/Input.hpp headers/Button.hpp headers/Text.hpp headers/TextArea.hpp headers/Exceptions.hpp headers/App.hpp headers/Container.hpp headers/Evidence.hpp headers/Form.hpp sources/App.cpp sources/View.cpp sources/SignInView.cpp sources/SignUpView.cpp sources/WelcomeView.cpp sources/MainView.cpp sources/Form.cpp sources/Input.cpp sources/Button.cpp sources/Text.cpp sources/TextArea.cpp sources/Container.cpp sources/Evidence.cpp)
+add_executable(${PROJECT_NAME} main.cpp headers/View.hpp headers/WelcomeView.hpp headers/SignInView.hpp headers/SignUpView.hpp headers/MainView.hpp headers/Input.hpp headers/Button.hpp headers/Text.hpp headers/TextArea.hpp headers/Exceptions.hpp headers/App.hpp headers/Container.hpp headers/Evidence.hpp headers/Form.hpp sources/App.cpp sources/View.cpp sources/SignInView.cpp sources/SignUpView.cpp sources/WelcomeView.cpp sources/MainView.cpp sources/Form.cpp sources/Input.cpp sources/Button.cpp sources/Text.cpp sources/TextArea.cpp sources/Container.cpp sources/Evidence.cpp headers/FormFactory.hpp sources/FormFactory.cpp)
 
 ###############################################################################
 

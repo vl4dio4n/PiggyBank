@@ -4,26 +4,14 @@
 
 #include "../headers/SignUpView.hpp"
 #include "../headers/Button.hpp"
-#include "../headers/TextArea.hpp"
-#include "../headers/Text.hpp"
 #include "../headers/Exceptions.hpp"
+#include "../headers/FormFactory.hpp"
 #include <utility>
 #include <fstream>
 #include <iostream>
 
-SignUpView::SignUpView(std::string viewName, bool isDisplayed): View(std::move(viewName), isDisplayed), form({400.f, 185.f}, true){
-    sf::Color btnFillColor{127, 135, 38};
-    sf::Color btnOutlineColor{66, 69, 19};
-    sf::Color taFillColor = sf::Color::White;
-    sf::Color taOutlineColor = sf::Color::Black;
 
-    form.addInput("Create Account", "", {130.f, 50.f}, {0.f, 100.f}, sf::Color::Transparent, sf::Color::Transparent, typeid(Text));
-    form.addInput("Name", "", {50.f, 150.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    form.addInput("Username", "", {50.f, 240.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    form.addInput("Password", "", {50.f, 330.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    form.addInput("Sign Up", "SignUp", {75.f, 420.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-    form.addInput("Back", "WelcomeView", {325.f, 420.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-}
+SignUpView::SignUpView(std::string viewName, bool isDisplayed): View(std::move(viewName), isDisplayed), form(FormFactory::getSignUpForm()){}
 
 std::map<std::string, std::string> SignUpView::parseLine(std::string& line){
     std::string value;

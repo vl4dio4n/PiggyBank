@@ -8,24 +8,13 @@
 
 #include "../headers/SignInView.hpp"
 #include "../headers/TextArea.hpp"
-#include "../headers/Text.hpp"
 #include "../headers/Exceptions.hpp"
+#include "../headers/FormFactory.hpp"
 #include <utility>
 #include <fstream>
 #include <iostream>
 
-SignInView::SignInView(std::string viewName, bool isDisplayed): View(std::move(viewName), isDisplayed), form({400.f, 185.f}, true){
-    sf::Color btnFillColor{127, 135, 38};
-    sf::Color btnOutlineColor{66, 69, 19};
-    sf::Color taFillColor = sf::Color::White;
-    sf::Color taOutlineColor = sf::Color::Black;
-
-    form.addInput("Sign In", "", {220.f, 50.f}, {0.f, 100.f}, sf::Color::Transparent, sf::Color::Transparent, typeid(Text));
-    form.addInput("Username", "", {50.f, 150.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    form.addInput("Password", "", {50.f, 240.f}, {500.f, 40.f}, taFillColor, taOutlineColor, typeid(TextArea));
-    form.addInput("Sign In", "SignIn", {200.f, 330.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-    form.addInput("Back", "WelcomeView", {200.f, 420.f}, {200.f, 60.f}, btnFillColor, btnOutlineColor, typeid(Button));
-}
+SignInView::SignInView(std::string viewName, bool isDisplayed): View(std::move(viewName), isDisplayed), form(FormFactory::getSignInForm()){}
 
 std::map <std::string, std::string> SignInView::parseLine(std::string& line){
     std::string value;

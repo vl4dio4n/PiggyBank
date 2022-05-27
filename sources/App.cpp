@@ -10,8 +10,15 @@
 #include "../headers/SignUpView.hpp"
 #include "../headers/SignInView.hpp"
 #include "../headers/MainView.hpp"
+#include "../headers/FormFactory.hpp"
+
+App& App::getApp(sf::RenderWindow &_window) {
+    static App app(_window);
+    return app;
+}
 
 App::App(sf::RenderWindow& window): window(window){
+    FormFactory::init();
     views.emplace_back(new WelcomeView{"WelcomeView", true});
     views.emplace_back(new SignUpView{"SignUpView", false});
     views.emplace_back(new SignInView{"SignInView", false});
