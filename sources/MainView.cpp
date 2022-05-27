@@ -221,6 +221,10 @@ std::string MainView::intToString(int num) {
     return numStr;
 }
 
+std::string MainView::floatToString(float num) {
+    return std::to_string(num).substr(0, std::to_string(num).length() - 3);
+}
+
 int sum(int x, const std::pair <std::shared_ptr<Container>, bool>& container){
     return container.second ? x + (container.first)->getEvidence().getIntValue() : x;
 }
@@ -388,8 +392,24 @@ void MainView::resetFormPosition(){
     balanceForm.setPosition(sf::Vector2f{1050.f, 730.f});
 }
 
+void MainView::updateTime() const{
+    clockF.updateClock();
+    clockI.updateClock();
+}
+
 void MainView::draw(sf::RenderTarget& target, sf::RenderStates) const{
     if(isDisplayed) {
+        // Useless but necessary
+        updateTime();
+        std::string c1 = "Session time: " + intToString(clockI.getSeconds() / 60) + " mins " + intToString(clockI.getSeconds() % 60) + " secs";
+        std::string c2 = "Session time: " + floatToString(clockF.getSeconds()) + " seconds";
+        Text clockIText{c1, sf::Vector2f{1075.f, 10.f}, sf::Vector2f{0.f, 40.f}};
+        Text clockFText{c2, sf::Vector2f{1075.f, 35.f}, sf::Vector2f{0.f, 40.f}};
+        clockIText.setTextRect();
+        clockFText.setTextRect();
+        target.draw(clockIText);
+        target.draw(clockFText);
+
         target.draw(userText);
         target.draw(btnForm);
         for (auto &container: containers)

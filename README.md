@@ -14,7 +14,7 @@ This is an OOP project for a course at Faculty of Mathematics and Informatics of
   - `dd/mm/yyyy` for a specific date
   - `dd/mm/yyyy-dd/mm/yyyy` for a range of dates
   - if you have more criteria just separate them by `;`; Example: `9/3/2022-14/3/2022;20/3/2022;1/2/2020-3/2/2022`
-- if you enter invalid dates they will be adjusted; Example day 36 of month 2 (March) becomes day 5 of month 4 (April)  
+- if you enter invalid dates they will be adjusted; Example day 36 of month 2 (March) becomes day 5 of month 3 (April)  
 - you can insert/pop character from a text area only at its end
 - if the text enterd in a text area is longer than its maximum number of characters it can display the text area will show only the last charcters and the rest won't be lost 
 - in order to commit changes to your account you have to press logout

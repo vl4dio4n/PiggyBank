@@ -9,6 +9,7 @@
 #include "Form.hpp"
 #include "Container.hpp"
 #include "Text.hpp"
+#include "Clock.hpp"
 
 class MainView: public View{
 private:
@@ -21,7 +22,8 @@ private:
     Form balanceForm;
     Text userText;
     std::string sessionUser;
-
+    Clock<int> clockI;
+    Clock<float> clockF;
 public:
     MainView(std::string, bool, std::string);
 
@@ -35,7 +37,8 @@ public:
     static bool checkInt(std::string);
     static bool checkUInt(const std::string&);
 
-    static std::string intToString(int) ;
+    static std::string intToString(int);
+    static std::string floatToString(float);
     int getBalance() const;
 
     static bool checkValidDate(std::string);
@@ -52,6 +55,8 @@ public:
 
     void moveForms(sf::Vector2f);
     void resetFormPosition();
+
+    void updateTime() const;
 
     std::string listen(sf::Event event, sf::Vector2i) override;
     void draw(sf::RenderTarget&, sf::RenderStates) const override;

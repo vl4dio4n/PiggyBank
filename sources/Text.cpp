@@ -3,7 +3,6 @@
 //
 
 #include "../headers/Text.hpp"
-
 #include <utility>
 
 Text::Text(std::string label, sf::Vector2f pos, sf::Vector2f size, sf::Color fillColor,sf::Color outlineColor):Input{
