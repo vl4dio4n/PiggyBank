@@ -176,8 +176,11 @@ std::vector <std::pair<std::string, std::string>> MainView::parseQueryLine(std::
         rawDates.push_back(value);
 
     std::vector <std::pair <std::string, std::string> > intervals;
-    for(const auto& rawDate: rawDates)
-        intervals.push_back(parseInterval(rawDate));
+//    for(const auto& rawDate: rawDates)
+//        intervals.push_back(parseInterval(rawDate));
+
+    std::transform(rawDates.begin(), rawDates.end(), std::back_inserter(intervals),
+           [](const auto& rawDate) -> std::pair<std::string, std::string>{ return parseInterval(rawDate); });
     return intervals;
 }
 
